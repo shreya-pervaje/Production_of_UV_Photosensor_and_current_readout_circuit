@@ -1,4 +1,4 @@
-#Production of UV photosensor and current readout circuit
+# Production of UV photosensor and current readout circuit
 The project focuses mainly on the production of a UV photosensor and current readout circuit containing a transimpedance amplifier on a single glass substrate using a semiconductor production process in a clean room at the Institute of Large Area Microelectronics, University of Stuttgart.
 
 # Various steps involved in the whole project
