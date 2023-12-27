@@ -5,10 +5,9 @@ from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import savgol_filter
 import sys
-
-
-
 import matplotlib as mpl
+
+# image settings
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
 settings = {"xtick.labelsize": 6,
@@ -19,6 +18,7 @@ settings = {"xtick.labelsize": 6,
             }
 mpl.rcParams.update(settings)
 
+#to filter the signal
 def fft_filter(
     s: np.ndarray, freqs: float, dt: float, df: float = 0.25
 ) -> np.ndarray:
@@ -85,11 +85,8 @@ k = np.argwhere((time>a) & (time< a+0.10)).flatten()
 timen = time[k]-a
 currentn = currentf[k]
 currentn2 = current[k]
-# plt.plot(time,-current)
-# plt.plot(timen,-currentn)
-# plt.show()
-# sys.exit()
-        
+
+# to calculate the fall time        
 maxv = np.max(-currentn)
 minv = np.min(-currentn)
 diff = maxv-minv
@@ -111,18 +108,12 @@ for i in range(0,len(currentn)):
 plt.plot(timen*1000,-currentn2,'o',markersize=1)    
 plt.plot(timen[c]*1000,-currentn[c],'bx',label='90% of difference')    
 plt.plot(timen[d]*1000,-currentn[d],'rx',label='10% of difference')
-
-# plt.show()
-# sys.exit()
     
 plt.xlabel('Time $t$ (ms)')
 plt.ylabel('Output current $I$ (A)')    
 responsen = timen[d]-timen[c]
 finaltext = "Response time down = {:.2f} milliseconds".format(responsen*1000) 
 print(np.abs(responsen*1000),"ms") 
-#plt.text(0,0 ,finaltext) 
-#plt.xlim(-0.015,0.05)
 plt.legend(fontsize=5)
 plt.tight_layout()
-#plt.show()
-#plt.savefig('plot_risetime_Au.eps',format='eps')
+plt.savefig('plot_risetime_Cr-Au.png')

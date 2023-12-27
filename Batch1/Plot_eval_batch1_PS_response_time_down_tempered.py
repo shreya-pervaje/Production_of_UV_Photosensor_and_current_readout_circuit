@@ -5,10 +5,9 @@ from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import savgol_filter
 import sys
-
-
-
 import matplotlib as mpl
+
+#image settings
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
 settings = {"xtick.labelsize": 6,
@@ -19,6 +18,7 @@ settings = {"xtick.labelsize": 6,
             }
 mpl.rcParams.update(settings)
 
+# filter the signal
 def fft_filter(
     s: np.ndarray, freqs: float, dt: float, df: float = 0.25
 ) -> np.ndarray:
@@ -56,6 +56,7 @@ response = []
 time = []
 signal = []    
 
+# data extraction
 data1 = np.genfromtxt(f'scope_0.csv',comments = '#',skip_header = 3,delimiter = ',')
 data2 = np.genfromtxt(f'scope_1.csv',comments = '#',skip_header = 3,delimiter = ',')                     
 data3 = np.genfromtxt(f'scope_2.csv',comments = '#',skip_header = 3,delimiter = ',')  
@@ -64,7 +65,7 @@ data5 = np.genfromtxt(f'scope_4.csv',comments = '#',skip_header = 3,delimiter = 
 data6 = np.genfromtxt(f'scope_5.csv',comments = '#',skip_header = 3,delimiter = ',')  
 
                                      
-                         
+# Stitching the image together                         
 time1 = data1[:,0] 
 signal1 = data1[:,2]
 
@@ -108,17 +109,8 @@ current = current[~np.isnan(current)]
 
 current = fft_filter(current,50,time[1]-time[0])
 currentf = savgol_filter(current,201,1)
-    #a = 0.245
-    #k = np.argwhere((time>a) & (time< a+0.2)).flatten()
-    
-    #timen = time[k]-a
-    #currentn = current[k]
- 
-# plt.plot(time,-current)
-# plt.plot(timen,-currentn)
-# plt.show()
-# sys.exit()
-        
+
+# to find the 90% and 10% of the difference between on and off signal        
 maxv = np.max(-currentf)
 minv = np.min(-currentf)
 diff = maxv-minv
@@ -126,7 +118,8 @@ diff = maxv-minv
  
 val10 = minv + 0.1*diff
 val90 = minv + 0.9*diff
-    
+
+# logic to find the 90% and 10% of the difference in the data and to plot these points
 for i in range(0,len(currentf)):
     if -currentf[i] < val90:
         c = i
@@ -136,20 +129,19 @@ for i in range(0,len(currentf)):
     if -currentf[i] < val10:
         d = i
         break
-plt.plot(time/60,-current)    
-plt.plot(time[c]/60,-currentf[c],'bx', markersize=6, label='90% of the steady value')    
-plt.plot(time[d]/60,-currentf[d],'rx', markersize=6, label='10% of the steady value')
+plt.plot(time/60,-current)   
 
-# plt.show()
-# sys.exit()
-    
-plt.xlabel('Time $t$ (mins)')
-plt.ylabel('Output current $I$ (A)')    
+# to plot the response time 
+plt.plot(time[c]/60,-currentf[c],'bx', markersize=6, label='90% of the diff.')    
+plt.plot(time[d]/60,-currentf[d],'rx', markersize=6, label='10% of the diff')
+
+# to calculate the response time
 responsen = time[d]-time[c]
 finaltext = "Response time down = {:.2f} mins".format(responsen/60) 
 print(np.abs(responsen)/60,"mins") 
+
+plt.xlabel('Time $t$ (mins)')
+plt.ylabel('Output current $I$ (A)')    
 plt.legend(fontsize=6)
-#plt.text(2, 0.65, finaltext, fontdict='4')
-##plt.xlim(0,1)
 plt.tight_layout()
-plt.savefig('plot_falltime_Au_tempered.png')
+plt.savefig('plot_falltime_Cr-Au_tempered.png')
