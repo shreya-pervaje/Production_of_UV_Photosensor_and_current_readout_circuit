@@ -22,7 +22,7 @@ mpl.rcParams.update(settings)
 
 
 
-dataname = 'SP1\TFT_Measurements\SP1_10um_10um\WithDi_Au_IGZO\SP1_Batch2_WithDi_Au_IGZO.xls'
+dataname = 'SP1_10um_10um\SP1_10um_10um_with_dielectric_tempered_Au_IGZO\SP1_Batch2_WithDi_Au_IGZO.xls'
 U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])        
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
 U_Drain = np.array(U_Drain.T)[0]
@@ -31,7 +31,7 @@ I_Drain = np.array(I_Drain.T)[0]
 #print(np.max(I_Drain))  
 plt.plot(U_Drain,I_Drain,'r', label = 'With Dielectric, Tempered, Gold and IGZO deposited')
 
-dataname = 'SP2\TFT_Measurements\SP2_10um_10um\WithAu_IGZO\SP2_Batch2_WithoutDi_WithAu_IGZO.xls'
+dataname = 'SP2_10um_10um\SP2_10um_10um_with_Au_IGZO\SP2_Batch2_WithoutDi_WithAu_IGZO.xls'
 U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])        
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
 U_Drain = np.array(U_Drain.T)[0]
@@ -46,5 +46,4 @@ plt.legend()
 plt.xlim(-20.2,20.2)
 #.title(dataname)
 plt.tight_layout()
-
-#plt.savefig('plot_TFT_PS.png')
+plt.savefig('plot_batch2_SP1_SP2_TFT_comparison.png')

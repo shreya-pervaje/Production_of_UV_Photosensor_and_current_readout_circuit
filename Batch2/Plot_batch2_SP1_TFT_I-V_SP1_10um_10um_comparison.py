@@ -21,48 +21,46 @@ settings = {"xtick.labelsize": 12,
 mpl.rcParams.update(settings)
 
 plt.style.use('default')
-UGate, IDrain = np.genfromtxt("WithoutDielectric/SP1_Batch2_10u_10u_TFT_Measurement1.txt", delimiter= '\t', unpack = True)    
+UGate, IDrain = np.genfromtxt("SP1_10um_10um_without_dielectric/SP1_Batch2_10u_10u_TFT_Measurement1.txt", delimiter= '\t', unpack = True)    
 plt.plot(UGate,np.absolute(IDrain),'green', label = "Only TFT",linewidth=4) 
 plt.xlabel('Gate voltage $V_\mathrm{GS}$ (V)',fontsize=18)
 plt.ylabel('Drain current $I_\mathrm{DS}$ (A)',fontsize=18)
 
 
-UGate, IDrain = np.genfromtxt("WithDielectric/Take2/SP1_Batch2_10u_10u_WithDielectric_TFT_Measurement1.txt", delimiter= '\t', unpack = True)    
+UGate, IDrain = np.genfromtxt("SP1_10um_10um_with_dielectric/SP1_Batch2_10u_10u_WithDielectric_TFT_Measurement1.txt", delimiter= '\t', unpack = True)    
 plt.plot(UGate,np.absolute(IDrain),'orange', label = "After dielectric depo.",linewidth=4) 
 
 
-dataname = 'SP1_10um_10um_withDi_Temp\SP1_10um_10um_withDi_Temp.xls'
-U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])      
+dataname = 'SP1_10um_10um_with_dielectric_tempered/SP1_10um_10um_with_dielectric_temp.xls'
+U_Gate = pd.read_excel(dataname, sheet_name="Data", usecols=[0])      
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
-U_Drain = np.array(U_Drain.T)[0]
+U_Gate = np.array(U_Gate.T)[0]
 I_Drain = np.array(I_Drain.T)[0]
 # #print(np.max(I_Drain))  
-plt.plot(U_Drain,I_Drain,'cyan',label = 'After tempering',linewidth=4)
+plt.plot(U_Gate,I_Drain,'cyan',label = 'After tempering',linewidth=4)
 
 
-dataname = 'SP1_10um_10um_withDi_Temp_withAu\SP1_10um_10um_withDi_Temp_withAu.xls'
-U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])       
+dataname = 'SP1_10um_10um_with_dielectric_tempered_Au/SP1_10um_10um_withDi_Temp_withAu.xls'
+U_Gate = pd.read_excel(dataname, sheet_name="Data", usecols=[0])       
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
-U_Drain = np.array(U_Drain.T)[0]
+U_Gate = np.array(U_Gate.T)[0]
 I_Drain = np.array(I_Drain.T)[0]
 # #print(np.max(I_Drain))  
-plt.plot(U_Drain,I_Drain,'red',label = 'After Cr-Au depo.',linewidth=4)
+plt.plot(U_Gate,I_Drain,'red',label = 'After Cr-Au depo.',linewidth=4)
 
 
-dataname = 'WithDi_Au_IGZO\SP1_Batch2_WithDi_Au_IGZO.xls'
-U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])        
+dataname = 'SP1_10um_10um_with_dielectric_tempered_Au_IGZO/SP1_Batch2_WithDi_Au_IGZO.xls'
+U_Gate = pd.read_excel(dataname, sheet_name="Data", usecols=[0])        
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
-U_Drain = np.array(U_Drain.T)[0]
+U_Gate = np.array(U_Gate.T)[0]
 I_Drain = np.array(I_Drain.T)[0]
 # #print(np.max(I_Drain))  
-plt.plot(U_Drain,I_Drain,'blue', label = 'After a-IGZO depo.',linewidth=3)
+plt.plot(U_Gate,I_Drain,'blue', label = 'After a-IGZO depo.',linewidth=3)
 
 
 plt.yscale('log')
 plt.legend(loc='upper left', fontsize=10)
-#plt.ylim(-2.2e-10,5.2e-10)
 plt.xlim(-20.2,20.2)
-#.title(dataname)
 plt.tight_layout()
 
-#plt.savefig('plot_SP1_different_layers.png')
+plt.savefig('plot_batch2_SP1_different_layers.png')

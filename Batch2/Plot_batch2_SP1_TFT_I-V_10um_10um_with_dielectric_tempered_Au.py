@@ -21,56 +21,38 @@ settings = {"xtick.labelsize": 6,
 mpl.rcParams.update(settings)
 savePlot = True
 
-# ax1 = plt.subplot()
-# ax2 = ax1.twinx()
-
-# ax1.tick_params(axis='y', colors='b')
-# ax2.tick_params(axis='y', colors='r')
-
-# ax1.yaxis.label.set_color('b')
-# ax2.yaxis.label.set_color('r')
-
 AnzahlTransistorenInSerienmessung = 4
 
-
-dataname = 'SP1_10um_10um_with_dielectric_temp.xls'
-U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])
-
-        
+dataname = 'SP1_10um_10um_withDi_Temp_withAu.xls'
+U_Gate = pd.read_excel(dataname, sheet_name="Data", usecols=[0])        
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
 
-U_Drain = np.array(U_Drain.T)[0]
+U_Gate = np.array(U_Gate.T)[0]
 I_Drain = np.array(I_Drain.T)[0]
 #print(np.max(I_Drain))  
-plt.plot(U_Drain,I_Drain)
+plt.plot(U_Gate,I_Drain)
 
 j = 1
 while j < AnzahlTransistorenInSerienmessung:
     appends = "Append" + str(j)
     j = j + 1
 
-
-
     U_Gate = pd.read_excel(dataname, sheet_name=appends, usecols=[0])
-
     I_Drain = pd.read_excel(dataname, sheet_name=appends, usecols=[1])
 
     U_Gate = np.array(U_Gate.T)[0]
     I_Drain = np.array(I_Drain.T)[0]
    # print(np.max(I_Drain))  
-    plt.plot(U_Drain,I_Drain)
+    plt.plot(U_Gate,I_Drain)
+    print(j)
 
 
 #print(np.max(I_Drain))    
-plt.plot(U_Drain,I_Drain,'b')    
-plt.xlabel('Gate voltage $V_\mathrm{Gate}$ (V)')
-plt.ylabel('Drain current $I_\mathrm{Drain}$ (A)')
+plt.plot(U_Gate,I_Drain,'b')    
+plt.xlabel('Gate voltage $V_\mathrm{GS}$ (V)')
+plt.ylabel('Drain current $I_\mathrm{DS}$ (A)')
 
 plt.yscale('log')
-#plt.legend()
-#plt.ylim(-2.2e-10,5.2e-10)
 plt.xlim(-20.2,20.2)
-#.title(dataname)
 plt.tight_layout()
-
-#plt.savefig('plot.png')
+plt.savefig('plot_batch2_SP1_TFT_I-V_10um_10um_with_dielectric_tempered_Au.png')

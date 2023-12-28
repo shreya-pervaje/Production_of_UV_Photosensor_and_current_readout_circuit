@@ -71,7 +71,7 @@ inpsignal = data[:, 4]
 signal1 = data[:, 3]
 
     
-#Signal filtering
+
 time = time[~np.isnan(signal1)]
 inpsignal = inpsignal[~np.isnan(signal1)]
 signal1 = signal1[~np.isnan(signal1)]
@@ -84,9 +84,8 @@ plt.plot(time,signal1,'r-',label="Output Signal")
 plt.ylabel('Voltage $V$ (V)')
 plt.xlabel('Time $t$ (s)')
 plt.xlim(0.25,2.25)
-plt.legend(fontsize='5')
-#plt.show()
+plt.legend(fontsize='5',loc='upper left')
 plt.tight_layout()
-plt.savefig('SP2_Readout1.eps',format='eps')
+plt.savefig('Plot_batch2_SP2_final_output_readout1.png')
 
 

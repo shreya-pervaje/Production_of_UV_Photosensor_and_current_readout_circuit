@@ -27,16 +27,15 @@ settings = {"xtick.labelsize": 6,
             }
 mpl.rcParams.update(settings)
 
-x_axis = ['1', '2','3','4','5']
-Mobility = [11.4, 13.006, 13.217, 11.121, 10.97]
+x_axis = ['1', '2','3']
+Mobility = [13.687, 10.12, 10.428]
 
 
 plt.style.use('default')
 plt.scatter(x_axis, Mobility, color='blue')
-plt.ylabel('Mobility $\u03BC$ (cm$^2$/(Vs))',fontsize=8)
-plt.ylim(10,14)
+plt.ylim(8,15)
 plt.xlabel('Steps',fontsize=8)
-#plt.xticks(rotation=30)
+plt.ylabel('Mobility $\u03BC$ (cm$^2$/(Vs))',fontsize=8)
 #plt.show()
 plt.tight_layout()
-plt.savefig('bar_plot_mobility_SP1.eps',format = 'eps')
+plt.savefig('Plot_batch2_SP2_TFT_mobility.png')

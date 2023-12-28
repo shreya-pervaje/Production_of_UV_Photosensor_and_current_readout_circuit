@@ -63,15 +63,13 @@ def fft_filter(
 p0 = [1.64e-9,230,7.63e-10]
 
 response = []
-#for f in range(5):
+
 
 data = np.genfromtxt('scope_10.csv',comments = '#',skip_header = 3,delimiter = ',')
 time = data[:,0] 
 inpsignal = data[:, 4]
 signal1 = data[:, 3]
 
-    
-#Signal filtering
 time = time[~np.isnan(signal1)]
 inpsignal = inpsignal[~np.isnan(signal1)]
 signal1 = signal1[~np.isnan(signal1)]
@@ -85,8 +83,8 @@ plt.ylabel('Voltage $V$ (V)')
 plt.xlabel('Time $t$ (s)')
 plt.xlim(0.25,2.25)
 plt.legend(fontsize='5')
-#plt.show()
+
 plt.tight_layout()
-plt.savefig('SP2_Readout3.eps',format='eps')
+plt.savefig('Plot_batch2_SP2_final_output_readout3.png')
 
 

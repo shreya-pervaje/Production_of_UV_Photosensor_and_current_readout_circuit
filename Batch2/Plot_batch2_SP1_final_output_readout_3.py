@@ -20,12 +20,7 @@ settings = {"xtick.labelsize": 6,
             }
 mpl.rcParams.update(settings)
 savePlot = True
-
-def ab(x,a,b,c,d,e):
-    return a*np.exp(-b*x) + c + d*np.exp(-e*x) 
-
-def an(x,a,b,c):
-    return a*(1 -np.exp(-b*x)) +c  
+ 
 
 
 def fft_filter(
@@ -83,10 +78,9 @@ plt.plot(time,inpsignal,'b-',label="Input Signal")
 plt.plot(time,signal1,'r-',label="Output Signal")
 plt.ylabel('Voltage $V$ (V)')
 plt.xlabel('Time $t$ (s)')
-plt.xlim(-0.75,1.25)
-plt.legend(fontsize='5')
-#plt.show()
+plt.xlim(-0.70,1.25)
+plt.legend(fontsize='5',loc='upper left')
 plt.tight_layout()
-plt.savefig('SP1_Readout3.eps',format='eps')
+plt.savefig('Plot_batch2_SP1_final_output_readout3.png')
 
 

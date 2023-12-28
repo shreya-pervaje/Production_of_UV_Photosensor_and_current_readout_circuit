@@ -32,7 +32,7 @@ W = 10 * 10 ** (-6)
 L = 10 * 10 ** (-6)
 C = e0 * er / d
 
-dataname = 'SP2_Batch2_WithoutDi_WithAu_IGZO.xls'
+dataname = 'SP1_10um_10um_with_dielectric_temp.xls'
 U_Gate = pd.read_excel(dataname, sheet_name="Data", usecols=[0])
 
         
@@ -67,7 +67,7 @@ U_TH_Array = np.append(U_TH_Array, U_TH)
 
 plt.plot(U_Gate,I_Drain,'b-',label='$V_\mathrm{DS} = 10 \, \mathrm{V}$')
 
-print(I_Drain[0])
+#print(I_Drain[0])
 
 j = 1
 while j < AnzahlTransistorenInSerienmessung:
@@ -77,7 +77,6 @@ while j < AnzahlTransistorenInSerienmessung:
 
 
     U_Gate = pd.read_excel(dataname, sheet_name=appends, usecols=[0])
-
     I_Drain = pd.read_excel(dataname, sheet_name=appends, usecols=[1])
 
     U_Gate = np.array(U_Gate.T)[0]
@@ -85,28 +84,24 @@ while j < AnzahlTransistorenInSerienmessung:
 
 
     difx = np.diff(U_Gate)
-
     dify = np.diff(np.sqrt(np.abs(I_Drain)))
     steigung = np.divide(dify, difx)
 
     maxV = np.max(steigung)
-
     maxvalue = np.argmax(steigung)
+    
     a = [U_Gate[maxvalue], U_Gate[maxvalue + 1]]
     b = [np.sqrt(np.abs(I_Drain[maxvalue])), np.sqrt(np.abs(I_Drain[maxvalue + 1]))]
 
     popt, _ = curve_fit(linear, a, b)
 
     U_TH = -popt[1] / popt[0]
-
     Mobility = 2 * I_Drain[maxvalue] / (U_Gate[maxvalue] - U_TH) ** 2 * L / (C * W) * 10000
 
     Mobility_Array = np.append(Mobility_Array, Mobility)
     U_TH_Array = np.append(U_TH_Array, U_TH)
 
-    #print("U_TH für Append", j, "beträgt: ", U_TH)
-    #print("Beweglichkeit für Append", j, "beträgt: ", Mobility)
-    print(I_Drain[0])
+    #print(I_Drain[0])
     plt.plot(U_Gate, I_Drain, 'b-')
 
 print(Mobility_Array)
@@ -118,6 +113,6 @@ plt.yscale('log')
 plt.xlim(-20.2,20.2)
 plt.tight_layout()
 plt.legend()
-#plt.savefig('input.png')
+plt.savefig('Eval_batch2_SP1_TFT_threshold_voltage_mobility_with_dielectric_tempered.png')
 #plt.title(dataname)
 #print(U_TH,Mobility)

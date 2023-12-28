@@ -27,15 +27,14 @@ settings = {"xtick.labelsize": 6,
             }
 mpl.rcParams.update(settings)
 
-x_axis = ['1', '2','3']
-V_threshold = [3.678, 2.705, 2.529]
+x_axis = ['1', '2','3','4','5']
+Mobility = [11.4, 13.006, 13.217, 11.121, 10.97]
+
 
 plt.style.use('default')
-plt.scatter(x_axis, V_threshold, color='red')
-plt.ylabel('Threshold voltage $V_{th}$ (V)',fontsize=8)
-plt.ylim(0,5)
+plt.scatter(x_axis, Mobility, color='blue')
+plt.ylabel('Mobility $\u03BC$ (cm$^2$/(Vs))',fontsize=8)
+plt.ylim(10,14)
 plt.xlabel('Steps',fontsize=8)
-#plt.xticks(rotation=30)
-#plt.show()
 plt.tight_layout()
-plt.savefig('SP2_bar_plot_threshold.eps',format = 'eps')
+plt.savefig('plot_batch2_SP1_TFT_mobility.png')

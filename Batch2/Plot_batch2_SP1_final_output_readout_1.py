@@ -9,6 +9,7 @@ from scipy.signal import savgol_filter
 import sys
 import matplotlib as mpl
 
+#image settings
 savePlot = True
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=600)
@@ -20,13 +21,6 @@ settings = {"xtick.labelsize": 6,
             }
 mpl.rcParams.update(settings)
 savePlot = True
-
-def ab(x,a,b,c,d,e):
-    return a*np.exp(-b*x) + c + d*np.exp(-e*x) 
-
-def an(x,a,b,c):
-    return a*(1 -np.exp(-b*x)) +c  
-
 
 def fft_filter(
     s: np.ndarray, freqs: float, dt: float, df: float = 0.25
@@ -63,7 +57,6 @@ def fft_filter(
 p0 = [1.64e-9,230,7.63e-10]
 
 response = []
-#for f in range(5):
 
 data = np.genfromtxt('scope_0.csv',comments = '#',skip_header = 3,delimiter = ',')
 time = data[:,0] 
@@ -71,7 +64,6 @@ inpsignal = data[:, 4]
 signal1 = data[:, 3]
 
     
-#Signal filtering
 time = time[~np.isnan(signal1)]
 inpsignal = inpsignal[~np.isnan(signal1)]
 signal1 = signal1[~np.isnan(signal1)]
@@ -84,9 +76,7 @@ plt.plot(time,signal1,'r-', label="Output Signal")
 plt.ylabel('Voltage $V$ (V)')
 plt.xlabel('Time $t$ (s)')
 plt.legend(loc='upper right')
-#plt.show()
 plt.tight_layout()
-plt.savefig('SP1_Readout1.png')
-plt.savefig('SP1_Readout1.eps',format='eps')
+plt.savefig('Plot_batch2_SP1_final_output_readout1.png')
 
 

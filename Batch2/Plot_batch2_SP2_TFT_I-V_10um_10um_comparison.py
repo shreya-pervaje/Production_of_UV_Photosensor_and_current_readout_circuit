@@ -20,13 +20,13 @@ settings = {"xtick.labelsize": 12,
             }
 mpl.rcParams.update(settings)
 
-UGate, IDrain = np.genfromtxt("WithoutDielectric/SP2_Batch2_10u_10u_TFT_Measurement1.txt", delimiter= '\t', unpack = True)    
+UGate, IDrain = np.genfromtxt("SP2_10um_10um_without_dielectric/SP2_Batch2_10u_10u_TFT_Measurement1.txt", delimiter= '\t', unpack = True)    
 plt.plot(UGate,np.absolute(IDrain),'g', label = "Only TFT") 
 plt.xlabel('Gate voltage $V_\mathrm{GS}$ (V)',fontsize=18)
 plt.ylabel('Drain current $I_\mathrm{DS}$ (A)',fontsize=18)
 
 
-dataname = 'SP2_10um_10um_withAu\SP2_10um_10um_withAu.xls'
+dataname = 'SP2_10um_10um_with_Au\SP2_10um_10um_withAu.xls'
 U_Drain = pd.read_excel(dataname, sheet_name="Append3", usecols=[0])      
 I_Drain = pd.read_excel(dataname, sheet_name='Append3', usecols=[1])
 U_Drain = np.array(U_Drain.T)[0]
@@ -35,7 +35,7 @@ I_Drain = np.array(I_Drain.T)[0]
 plt.plot(U_Drain,I_Drain,'r',label = 'After gold deposition')
 
 
-dataname = 'WithAu_IGZO\SP2_Batch2_WithoutDi_WithAu_IGZO.xls'
+dataname = 'SP2_10um_10um_with_Au_IGZO\SP2_Batch2_WithoutDi_WithAu_IGZO.xls'
 U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])        
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
 U_Drain = np.array(U_Drain.T)[0]
@@ -51,4 +51,4 @@ plt.xlim(-20.2,20.2)
 #.title(dataname)
 plt.tight_layout()
 
-plt.savefig('plot_SP2_different_layers.eps',format = 'eps')
+plt.savefig('plot_batch2_SP2_different_layers.png')

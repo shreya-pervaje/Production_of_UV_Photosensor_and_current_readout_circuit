@@ -21,22 +21,10 @@ settings = {"xtick.labelsize": 6,
 mpl.rcParams.update(settings)
 savePlot = True
 
-# ax1 = plt.subplot()
-# ax2 = ax1.twinx()
-
-# ax1.tick_params(axis='y', colors='b')
-# ax2.tick_params(axis='y', colors='r')
-
-# ax1.yaxis.label.set_color('b')
-# ax2.yaxis.label.set_color('r')
-
 AnzahlTransistorenInSerienmessung = 8
 
-
 dataname = 'SP1_SP2_10um_10um_withDi_Temp_withAu_difference.xls'
-U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])
-
-        
+U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[0])       
 I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[1])
 
 U_Drain = np.array(U_Drain.T)[0]
@@ -49,10 +37,7 @@ while j < AnzahlTransistorenInSerienmessung:
     appends = "Append" + str(j)
     j = j + 1
 
-
-
     U_Gate = pd.read_excel(dataname, sheet_name=appends, usecols=[0])
-
     I_Drain = pd.read_excel(dataname, sheet_name=appends, usecols=[1])
 
     U_Gate = np.array(U_Gate.T)[0]
@@ -74,4 +59,4 @@ plt.xlim(-20.2,20.2)
 #.title(dataname)
 plt.tight_layout()
 
-plt.savefig('plot_SP1_SP2.png')
+plt.savefig('plot_batch2_SP1_SP2_with_without_dielectric.png')
