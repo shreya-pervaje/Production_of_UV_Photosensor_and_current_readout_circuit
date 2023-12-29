@@ -5,10 +5,8 @@ from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import savgol_filter
 import sys
-
-
-
 import matplotlib as mpl
+
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
 settings = {"xtick.labelsize": 6,
@@ -64,11 +62,7 @@ signal1 = data1[:,3]
 
 
 time.append(time1)
-
-
 signal.append(signal1)
-
-
 
 R = 20e6
     
@@ -87,10 +81,6 @@ k = np.argwhere((time>a) & (time< a+0.20)).flatten()
 timen = time[k]-a
 currentn = currentf[k]
 currentn2 = current[k]
-# plt.plot(time,-current)
-# plt.plot(timen,-currentn)
-# plt.show()
-# sys.exit()
         
 maxv = np.max(-currentn)
 minv = np.min(-currentn)
@@ -99,7 +89,8 @@ diff = maxv-minv
  
 val10 = minv + 0.1*diff
 val90 = minv + 0.9*diff
-print(val90,val10)
+#print(val90,val10)
+
 for i in range(0,len(currentn)):
     if -currentn[i] < val90:
         c = i
@@ -114,17 +105,12 @@ plt.plot(timen,-currentn2,'o',markersize=2)
 plt.plot(timen[c],-currentn[c],'bx',label='90% of the difference')    
 plt.plot(timen[d],-currentn[d],'rx',label='10% of the difference')
 
-# plt.show()
-# sys.exit()
     
 plt.xlabel('Time $t$ (ms)')
 plt.ylabel('Output current $I$ (A)')    
 responsen = timen[d]-timen[c]
 finaltext = "Response time down = {:.2f} milliseconds".format(responsen*1000) 
 print(np.abs(responsen*1000),"ms") 
-#plt.text(0,0 ,finaltext) 
-#plt.xlim(-0.015,0.05)
 plt.legend(fontsize=5)
 plt.tight_layout()
-#plt.show()
-plt.savefig('plot_falltime_MoTa.eps',format='eps')
+plt.savefig('plot_batch3_ps_100um_10um_response_time_down.png')

@@ -24,16 +24,16 @@ def linear(x, a, b):
 AnzahlTransistorenInSerienmessung = 8
 
 colors = ['blue','red']
-dataname = 'Photosensors_10um_10um_Tempered.xls'
-U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[1])
+dataname = 'Photosensors_10um_10um.xls'
+U_PS = pd.read_excel(dataname, sheet_name="Data", usecols=[1])
 
         
-I_Drain = pd.read_excel(dataname, sheet_name='Data', usecols=[0])
+I_PS = pd.read_excel(dataname, sheet_name='Data', usecols=[0])
 
-U_Drain = np.array(U_Drain.T)[0]
-I_Drain = np.array(I_Drain.T)[0]
+U_PS = np.array(U_PS.T)[0]
+I_PS = np.array(I_PS.T)[0]
 
-plt.plot(U_Drain,I_Drain,color = colors[0],label = 'light off')
+plt.plot(U_PS,I_PS,color = colors[0],label = 'light off')
 #plt.show()
 #sys.exit()
 j = 1
@@ -45,17 +45,17 @@ while j < AnzahlTransistorenInSerienmessung:
 
     U_Gate = pd.read_excel(dataname, sheet_name=appends, usecols=[1])
 
-    I_Drain = pd.read_excel(dataname, sheet_name=appends, usecols=[0])
+    I_PS = pd.read_excel(dataname, sheet_name=appends, usecols=[0])
 
     U_Gate = np.array(U_Gate.T)[0]
-    I_Drain = np.array(I_Drain.T)[0]
+    I_PS = np.array(I_PS.T)[0]
     
     if j < 5:
-        plt.plot(U_Drain,np.abs(I_Drain),color = colors[0])
+        plt.plot(U_PS,np.abs(I_PS),color = colors[0])
     elif j >= 5:
-        plt.plot(U_Drain,np.abs(I_Drain),color = colors[1])
+        plt.plot(U_PS,np.abs(I_PS),color = colors[1])
         
-plt.plot(U_Drain,np.abs(I_Drain),color = colors[1],label = 'light on')
+plt.plot(U_PS,np.abs(I_PS),color = colors[1],label = 'light on')
    
 plt.xlabel('Voltage $U$ (V)')
 plt.ylabel('Current $I$ (A)')
@@ -63,6 +63,5 @@ plt.ylabel('Current $I$ (A)')
 plt.legend()
 plt.yscale('log')
 plt.show()
-plt.savefig('plot_MoTa_ps.eps',format = 'eps')
-#plt.title(dataname)
+plt.savefig('plot_batch3_PS_I-V_100um_10um.png')
 

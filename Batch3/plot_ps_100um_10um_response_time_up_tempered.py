@@ -5,9 +5,6 @@ from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import savgol_filter
 import sys
-
-
-
 import matplotlib as mpl
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
@@ -112,16 +109,7 @@ current = current[~np.isnan(current)]
 
 current = fft_filter(current,50,time[1]-time[0])
 currentf = savgol_filter(current,101,1)
-    #a = 0.245
-    #k = np.argwhere((time>a) & (time< a+0.2)).flatten()
-    
-    #timen = time[k]-a
-    #currentn = current[k]
- 
-#plt.plot(time,-current)
-#plt.plot(timen,-currentn)
-#plt.show()
-#sys.exit()
+
         
 maxv = np.max(-currentf)
 minv = np.min(-currentf)
@@ -142,8 +130,8 @@ for i in range(0,len(currentf)):
         break    
     
 plt.plot(time/60,-current,'o',markersize=1)
-plt.plot(time[c]/60,-currentf[c],'bx', markersize=6, label='90% of the steady value')    
-plt.plot(time[d]/60,-currentf[d],'rx', markersize=6, label='10% of the steady value')
+plt.plot(time[c]/60,-currentf[c],'bx', markersize=6, label='90% of the diff.')    
+plt.plot(time[d]/60,-currentf[d],'rx', markersize=6, label='10% of the diff.')
 responsen = time[d]-time[c]
 finaltext = "Response time up = {} mins".format(-responsen/60) 
 
@@ -151,10 +139,6 @@ plt.xlabel('Time (mins)')
 plt.ylabel('Output Current $I$ (A)')    
 plt.legend(fontsize=6)
 print(np.abs(responsen)/60,"mins") 
-#plt.text(5,0,finaltext) 
-#count = 1
-#plt.plot(count,np.abs(responsen)/60,'bo')
 
-##plt.xlim(0,1)
 plt.tight_layout()
-plt.savefig('plot_risetime_MoTa_tempered.eps',format='eps')
+plt.savefig('plot_batch3_PS_response_time_down_tempered.png')
