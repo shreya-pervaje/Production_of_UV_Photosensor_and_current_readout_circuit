@@ -13,11 +13,11 @@ def linear(x, a, b):
 
 savePlot = True
 cm = 1/2.54
-plt.figure(figsize= (7.3*cm,5*cm),dpi=600)
-settings = {"xtick.labelsize": 7,
-            "ytick.labelsize": 7,
-            "font.size": 6,
-            "legend.fontsize": 3,
+plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
+settings = {"xtick.labelsize": 6,
+            "ytick.labelsize": 6,
+            "font.size": 9,
+            "legend.fontsize": 6,
             "font.family":['Arial']
             }
 mpl.rcParams.update(settings)
@@ -26,11 +26,30 @@ AnzahlTransistorenInSerienmessung = 8
 colors = ['blue','red']
 PSx = 4
 SPy = 8
-y = 5
 
+y = 1
 while y <= SPy:
     x = 1
     while x <= PSx:
+        if y == 3 and x == 1:
+            x +=1
+            continue
+        if y == 3 and x == 3:
+            x +=1
+            continue
+        if y == 3 and x == 4:
+            x +=1
+            continue
+        if y == 4 and x == 1:
+            x +=1
+            continue
+        if y == 4 and x == 3:
+            x +=1
+            continue
+        if y == 4 and x == 4:
+            x +=1
+            continue  
+        
         plt.figure()
         dataname = 'Batch4_SP' + str(y) +'_PS' + str(x) + '_I-V.xls'
         U_Drain = pd.read_excel(dataname, sheet_name="Data", usecols=[1])
@@ -42,8 +61,7 @@ while y <= SPy:
         
         plt.plot(U_Drain,np.abs(I_Drain),color = colors[0],label = 'light off')
     
-#plt.show()
-#sys.exit()
+
         j = 1
         while j < AnzahlTransistorenInSerienmessung:
             appends = "Append" + str(j)
@@ -64,15 +82,13 @@ while y <= SPy:
         plt.plot(U_Drain,np.abs(I_Drain),color = colors[1],label = 'light on')
         plt.xlabel('Voltage $U$ (V)')
         plt.ylabel('Current $I$ (A)')
-        plt.legend(fontsize='6')
+        plt.legend(fontsize='10')
         plt.yscale('log')
-        #plt.title('Batch4_SP' + str(y) +'_PS' + str(x))
-        #plt.show()
         plt.tight_layout()
-        plt.savefig('Batch4_SP' + str(y) + '_PS' + str(x) +'_I-V_plot.png')
-        plt.savefig('Batch4_SP' + str(y) + '_PS' + str(x) +'_I-V_plot.eps',format='eps')
-        x = x + 1
-    y = y + 1 
+        plt.savefig('plot_batch4_SP' + str(y) + '_PS' + str(x) +'_i-v_100um_10um.png')
+        #plt.savefig('Batch4_SP' + str(y) + '_PS' + str(x) +'_I-V_plot.eps',format='eps')
+        x += 1
+    y += 1
 
 
 

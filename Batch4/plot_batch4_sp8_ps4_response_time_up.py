@@ -5,10 +5,8 @@ from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import savgol_filter
 import sys
-
-
-
 import matplotlib as mpl
+
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
 settings = {"xtick.labelsize": 6,
@@ -56,39 +54,17 @@ response = []
 time = []
 signal = []    
 
-data1 = np.genfromtxt(f'scope_0.csv',comments = '#',skip_header = 3,delimiter = ',')
-data2 = np.genfromtxt(f'scope_1.csv',comments = '#',skip_header = 3,delimiter = ',')                     
-data3 = np.genfromtxt(f'scope_2.csv',comments = '#',skip_header = 3,delimiter = ',')  
-data4 = np.genfromtxt(f'scope_3.csv',comments = '#',skip_header = 3,delimiter = ',')
-                                    
+data1 = np.genfromtxt(f'scope_6.csv',comments = '#',skip_header = 3,delimiter = ',')
+
                          
 time1 = data1[:,0] 
 signal1 = data1[:,2]
 
-time2 = data2[:,0] 
-signal2 = data2[:,2]
-
-time3 = data3[:,0] 
-signal3 = data3[:,2]
-
-time4 = data4[:,0] 
-signal4 = data4[:,2]
-
-
-
-time.append(time1+500)
-time.append(time2+1000)
-time.append(time3+1500)
-time.append(time4+2000)
-
-
+time.append(time1)
 signal.append(signal1)
-signal.append(signal2)
-signal.append(signal3)
-signal.append(signal4)
 
 
-R = 10e6
+R = 20e6
     
 time = np.array(time)        
 current = np.array(signal)/R
@@ -98,49 +74,41 @@ current = current[~np.isnan(current)]
     
 
 current = fft_filter(current,50,time[1]-time[0])
-currentf = savgol_filter(current,101,1)
-    #a = 0.245
-    #k = np.argwhere((time>a) & (time< a+0.2)).flatten()
+currentf = savgol_filter(current,11,3)
+a = -0.10
+k = np.argwhere((time>a) & (time< a+0.25)).flatten()
     
-    #timen = time[k]-a
-    #currentn = current[k]
- 
-# plt.plot(time,-current)
-# plt.plot(timen,-currentn)
-# plt.show()
-# sys.exit()
+timen = time[k]-a
+currentn = currentf[k]
+currentn2 = current[k]
         
-maxv = np.max(-currentf)
-minv = np.min(-currentf)
+maxv = np.max(-currentn)
+minv = np.min(-currentn)
 diff = maxv-minv
     
  
 val10 = minv + 0.1*diff
 val90 = minv + 0.9*diff
+   # print(val10,val90)
     
-for i in range(0,len(currentf)):
-    if -currentf[i] < val90:
+for i in range(0,len(currentn)):
+    if -currentn[i] > val90:
         c = i
         break
         
-for i in range(0,len(current)):
-    if -currentf[i] < val10:
+for i in range(0,len(currentn)):
+    if -currentn[i] > val10:
         d = i
         break    
+
+plt.plot(timen*1000,-currentn2,'o')
+plt.plot(timen[c]*1000,-currentn[c],'bx')    
+plt.plot(timen[d]*1000,-currentn[d],'rx')
+plt.xlabel('Time $t$ (ms)')
+plt.ylabel('Output Current $I$ (A)')    
+responsen = time[c]-time[d]
+finaltext = "Response time up = {:.2f} milliseconds".format(responsen*1000) 
+print(np.abs(responsen*1000),"milliseconds") 
     
-plt.plot(time/60,-current,'o',markersize =1)
-plt.plot(time[c]/60,-currentf[c],'bx',label='90% of the difference')    
-plt.plot(time[d]/60,-currentf[d],'rx',label='10% of the difference')
-plt.xlabel('Time $t$ (mins)')
-plt.ylabel('Output Current $I$ (A)')
-
-# plt.show()
-# sys.exit()
-plt.legend(fontsize=5)
-responsen = time[d]-time[c]  
-finaltext = "Response time down = {} mins".format(responsen/60) 
-print(np.abs(responsen)/60,"mins") 
-
-##plt.xlim(0,1)
 plt.tight_layout()
-plt.savefig('plot_falltime_PS2.eps',format='eps')
+plt.savefig('plot_batch4_sp8_ps4_response_time_up.png')

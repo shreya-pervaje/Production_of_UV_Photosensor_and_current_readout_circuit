@@ -5,10 +5,9 @@ from scipy.optimize import curve_fit
 from scipy import interpolate
 from scipy.signal import savgol_filter
 import sys
-
-
-
 import matplotlib as mpl
+
+
 cm = 1/2.54
 plt.figure(figsize= (7.3*cm,5*cm),dpi=300)
 settings = {"xtick.labelsize": 6,
@@ -56,7 +55,7 @@ response = []
 time = []
 signal = []    
 
-data1 = np.genfromtxt(f'scope_0.csv',comments = '#',skip_header = 3,delimiter = ',')
+data1 = np.genfromtxt(f'scope_3.csv',comments = '#',skip_header = 3,delimiter = ',')
 
                          
 time1 = data1[:,0] 
@@ -77,16 +76,12 @@ current = current[~np.isnan(current)]
 
 current = fft_filter(current,50,time[1]-time[0])
 currentf = savgol_filter(current,11,3)
-a = -0.25
-k = np.argwhere((time>a) & (time< a+0.5)).flatten()
+a = -0.15
+k = np.argwhere((time>a) & (time< a+0.25)).flatten()
     
 timen = time[k]-a
 currentn = currentf[k]
 currentn2 = current[k]
-# plt.plot(time,-current)
-# plt.plot(timen,-currentn)
-# plt.show()
-# sys.exit()
         
 maxv = np.max(-currentn)
 minv = np.min(-currentn)
@@ -107,14 +102,13 @@ for i in range(0,len(currentn)):
         d = i
         break    
 
-plt.plot(timen*1000,-currentn2,'o',markersize=2)
-plt.plot(timen[c]*1000,-currentn[c],'bx',markersize=6,label='90% of the difference')    
-plt.plot(timen[d]*1000,-currentn[d],'rx',markersize=6,label='10% of the difference')
+plt.plot(timen*1000,-currentn2,'o')
+plt.plot(timen[c]*1000,-currentn[c],'bx')    
+plt.plot(timen[d]*1000,-currentn[d],'rx')
 plt.xlabel('Time $t$ (ms)')
 plt.ylabel('Output Current $I$ (A)')    
 responsen = time[c]-time[d]
 finaltext = "Response time up = {:.2f} milliseconds".format(responsen*1000) 
 print(np.abs(responsen*1000),"milliseconds") 
-plt.legend(loc='upper left',fontsize=5)
 plt.tight_layout()
-plt.savefig('plotup_PS1_responsetime.eps',format='eps')
+plt.savefig('plot_batch4_sp5_ps3_response_time_up.png')
