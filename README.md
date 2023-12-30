@@ -14,6 +14,6 @@ The codes are organized batch-wise for better clarity. Each batch is the set of 
 - Batch 3 contains the electrical characterization of UV photosensors produced using Molybdenum Tantalum-Indium Tin Oxide as its electrode. This was done to reuse the material from thin film transistors to optimize the production in the next batch.
 - Batch 4 contains the electrical characterization of components similar to batch 2 but here the production process was optimized by reusing the existing materials and eliminating the layers.
 
-#How to run the code
+# How to run the code
 - The data could not be updated due to non-disclosure agreement signed with the Institute of Large Area Microelectronics, Uni Stuttgart.
 - The packages and their versions used mentioned in the file "requirements.txt" and the command "pip install -r requirements.txt" could be used to install all the packages that is required to recreate the same environment.
