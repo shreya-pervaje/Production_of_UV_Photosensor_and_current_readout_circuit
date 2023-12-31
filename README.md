@@ -21,8 +21,4 @@ The codes are organized batch-wise for better clarity. Each batch is the set of 
   ```console
   pip install -r requirements.txt
   ```
-  ```console
-foo@bar:~$ whoami
-foo
-```
   could be used to install all the packages that is required to recreate the same environment.
