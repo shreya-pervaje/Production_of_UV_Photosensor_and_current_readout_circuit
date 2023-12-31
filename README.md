@@ -17,4 +17,8 @@ The codes are organized batch-wise for better clarity. Each batch is the set of 
 
 # How to run the code
 - The data could not be updated due to non-disclosure agreement signed with the Institute of Large Area Microelectronics, Uni Stuttgart.
-- The packages and their versions used mentioned in the file "requirements.txt" and the command console'''pip install -r requirements.txt''' could be used to install all the packages that is required to recreate the same environment.
+- The packages and their versions used mentioned in the file "requirements.txt" and the command 
+  '''console
+  pip install -r requirements.txt
+  '''
+  could be used to install all the packages that is required to recreate the same environment.
