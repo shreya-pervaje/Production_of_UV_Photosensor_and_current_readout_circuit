@@ -6,7 +6,7 @@ The project focuses mainly on the production of a UV photosensor and current rea
 - Creation of layout and production of current readout circuit for the photosensor containing transimpedance amplifier on the same substrate
 - Optimization of production steps by reusing the existing layer and also reducing the number of layers required
 - Electrical characterization of all the components after their production using the Keithley instruments and the Python scripts
-- Detailed description of the project is mentioned in the report: [Production of UV photosensor and current readout circuit(https://link-url-here.org](https://drive.google.com/file/d/1Ng5pi7pYeUGtu5qTg4N3Vx0-dnfdbjn2/view?usp=sharing)]
+- Detailed description of the project is mentioned in the report: [(https://link-url-here.org](https://drive.google.com/file/d/1Ng5pi7pYeUGtu5qTg4N3Vx0-dnfdbjn2/view?usp=sharing)]
 
 # How to read the files
 The codes are organized batch-wise for better clarity. Each batch is the set of measurements done on substrates after each production step.
